@@ -18,6 +18,11 @@
     "mysql2": "^3.14.4"
   },
   "devDependencies": {
+    "morgan": "^1.10.1",
     "nodemon": "^3.1.10"
   }
+}
+{
+  "start": "node src/index.js",
+  "dev": "nodemon src/index.js"
 }
