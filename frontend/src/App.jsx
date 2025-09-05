@@ -1,93 +1,130 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import Todo from "./components/Todo.jsx";
 import TodoForm from "./components/TodoForm.jsx";
 import Search from "./components/search.jsx";
 import Filter from "./components/Filter.jsx";
+import {
+  listTasks,
+  createTask,
+  updateTask,
+  toggleTask,
+  deleteTask,
+} from "./services/todos";
 
 function App() {
-  const [todos, setTodos] = useState([
-    // Array de tarefas
-    {
-      id: 1,
-      text: "Criar um projeto React",
-      category: "Trabalho",
-      isCompleted: false,
-    },
-    {
-      id: 2,
-      text: "Ir na academia",
-      category: "Pessoal",
-      isCompleted: false,
-    },
-    {
-      id: 3,
-      text: "Estudar JavaScript",
-      category: "Estudos",
-      isCompleted: false,
-    },
-  ]); // Estado inicial com algumas tarefas de exemplo
+  const [todos, setTodos] = useState([]);
+  const [search, setSearch] = useState("");
+  const [filter, setFilter] = useState("all");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  const [search, setSearch] = useState(""); // Estado para o termo de pesquisa
-  const [filter, setFilter] = useState("all"); // Estado para o filtro de categoria
-  const addTodo = (text, category) => {
-    const newTodos = [
-      ...todos,
-      {
-        id: Math.floor(Math.random() * 10000), // Gera um ID aleatório
-        text,
-        category,
-        isCompleted: false, // Nova tarefa não está completa por padrão
-      },
-    ];
+  useEffect(() => {
+    (async () => {
+      try {
+        const data = await listTasks();
+        setTodos(
+          data.map((t) => ({
+            id: t.id,
+            text: t.text,
+            category: t.category,
+            isCompleted: !!t.is_completed,
+          }))
+        );
+      } catch (e) {
+        setError("Falha ao carregar tarefas");
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, []);
 
-    setTodos(newTodos);
+  const addTodo = async (text, category) => {
+    try {
+      const created = await createTask({ text, category, is_completed: false });
+      setTodos((prev) => [
+        {
+          id: created.id,
+          text: created.text,
+          category: created.category,
+          isCompleted: !!created.is_completed,
+        },
+        ...prev,
+      ]);
+    } catch {
+      setError("Erro ao adicionar tarefa");
+    }
   };
 
-  const removeTodo = (id) => {
-    const newTodos = [...todos];
-    const filteredTodos = newTodos.filter((todo) =>
-      todo.id !== id ? todo : null
-    );
-    setTodos(filteredTodos);
+  const removeTodo = async (id) => {
+    try {
+      await deleteTask(id);
+      setTodos((prev) => prev.filter((t) => t.id !== id));
+    } catch {
+      setError("Erro ao excluir tarefa");
+    }
   };
 
-  const editTodo = (id, newText, newCategory) => {
-    const updatedTodos = todos.map((todo) =>
-      todo.id === id ? { ...todo, text: newText, category: newCategory } : todo
-    );
-    setTodos(updatedTodos);
+  const editTodo = async (id, newText, newCategory) => {
+    try {
+      const cur = todos.find((t) => t.id === id);
+      const updated = await updateTask(id, {
+        text: newText,
+        category: newCategory,
+        is_completed: cur.isCompleted,
+      });
+      setTodos((prev) =>
+        prev.map((t) =>
+          t.id === id
+            ? {
+                id,
+                text: updated.text,
+                category: updated.category,
+                isCompleted: !!updated.is_completed,
+              }
+            : t
+        )
+      );
+    } catch {
+      setError("Erro ao editar");
+    }
   };
 
-  const completeTodo = (id) => {
-    const newTodos = [...todos];
-    newTodos.map((todo) =>
-      todo.id === id ? (todo.isCompleted = !todo.isCompleted) : todo
-    );
-    setTodos(newTodos);
+  const completeTodo = async (id) => {
+    try {
+      const updated = await toggleTask(id);
+      setTodos((prev) =>
+        prev.map((t) =>
+          t.id === id ? { ...t, isCompleted: !!updated.is_completed } : t
+        )
+      );
+    } catch {
+      setError("Erro ao atualizar status");
+    }
   };
+
+  const filtered = todos
+    .filter((t) =>
+      filter === "all"
+        ? true
+        : filter === "completed"
+        ? t.isCompleted
+        : !t.isCompleted
+    )
+    .filter((t) => t.text.toLowerCase().includes(search.toLowerCase()));
 
   return (
     <div className="App">
       <h1>Lista de Tarefas</h1>
-      <Search search={search} setSearch={setSearch} />
-      <Filter filter={filter} setFilter={setFilter} />
-      <div className="todo-list">
-        {todos
-          .filter((todo) =>
-            filter === "all"
-              ? true
-              : filter === "completed"
-              ? todo.isCompleted
-              : !todo.isCompleted
-          ) // Filtra as tarefas com base no filtro selecionado
-          .filter(
-            (todo) => todo.text.toLowerCase().includes(search.toLowerCase()) // Corrigido aqui
-          )
-          .map(
-            (
-              todo // Renderiza cada tarefa usando o componente Todo
-            ) => (
+      {error && <div className="error">{error}</div>}
+      {loading ? (
+        <p>Carregando...</p>
+      ) : (
+        <>
+          <Search search={search} setSearch={setSearch} />
+          <Filter filter={filter} setFilter={setFilter} />
+          <div className="todo-list">
+            {filtered.map((todo) => (
               <Todo
                 key={todo.id}
                 todo={todo}
@@ -95,10 +132,11 @@ function App() {
                 completeTodo={completeTodo}
                 editTodo={editTodo}
               />
-            )
-          )}
-      </div>
-      <TodoForm addTodo={addTodo} />
+            ))}
+          </div>
+          <TodoForm addTodo={addTodo} />
+        </>
+      )}
     </div>
   );
 }
