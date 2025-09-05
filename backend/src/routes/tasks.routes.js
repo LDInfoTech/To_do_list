@@ -2,11 +2,12 @@ const express = require("express");
 const ctrl = require("../controllers/task.controller");
 const router = express.Router();
 
-router.get("/tasks", ctrl.list);
-router.get("/tasks/:id", ctrl.get);
-router.post("/tasks", ctrl.create);
-router.put("/tasks/:id", ctrl.update);
-router.patch("/tasks/:id/toggle", ctrl.toggle);
-router.delete("/tasks/:id", ctrl.remove);
+// Rotas relativas ao prefixo /tasks
+router.get("/", ctrl.list); // GET /tasks
+router.get("/:id", ctrl.get); // GET /tasks/:id
+router.post("/", ctrl.create); // POST /tasks
+router.put("/:id", ctrl.update); // PUT /tasks/:id
+router.patch("/:id/toggle", ctrl.toggle); // PATCH /tasks/:id/toggle
+router.delete("/:id", ctrl.remove); // DELETE /tasks/:id
 
 module.exports = router;
