@@ -4,8 +4,9 @@ const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
 
-const taskRoutes = require("./routes/tasks.routes");
-const errorHandler = require("./middlewares/errorHandler");
+const taskRoutes = require("./routes/tasks"); //importa as rotas de tarefas
+const errorHandler = require("./middlewares/errorHandler"); //importa o middleware de tratamento de erros
+const db = require("./config/db"); //importa a configuração do banco de dados para inicializar a conexão antecipadamente
 // um middleware de tratamento de erros
 const app = express();
 app.use(helmet());
