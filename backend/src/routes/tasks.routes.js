@@ -1,5 +1,5 @@
 const express = require("express");
-const ctrl = require("../controllers/taskController");
+const ctrl = require("../controllers/task.controller");
 const router = express.Router();
 
 router.get("/tasks", ctrl.list);
