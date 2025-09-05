@@ -1,4 +1,4 @@
-import { api } from "./Api";
+import { api } from "./api";
 // Funções para interagir com a API de tarefas
 export const listTasks = () => api.get("/tasks").then((r) => r.data);
 export const createTask = (payload) =>
