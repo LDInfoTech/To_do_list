@@ -11,7 +11,7 @@ import {
   toggleTask,
   deleteTask,
 } from "./services/todos";
-
+//
 function App() {
   const [todos, setTodos] = useState([]);
   const [search, setSearch] = useState("");
@@ -31,6 +31,7 @@ function App() {
             isCompleted: !!t.is_completed,
           }))
         );
+        // eslint-disable-next-line no-unused-vars
       } catch (e) {
         setError("Falha ao carregar tarefas");
       } finally {
