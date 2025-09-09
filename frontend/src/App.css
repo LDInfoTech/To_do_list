@@ -379,22 +379,78 @@ button.remove:hover {
 }
 
 /* Ajustes para telas pequenas */
-@media (max-width: 760px) {
+
+@media screen and (max-width: 760px) {
+  /* Ajustes gerais para telas menores */
+  body {
+    padding: 15px;
+  }
+
+  .App {
+    margin: 0 auto 100px;
+    padding: 15px;
+  }
+
+  /* Ajuste específico para os botões de ação nas tarefas */
   .todo {
-    flex-direction: column; /* coloca conteúdo e botões em coluna */
-    align-items: flex-start; /* alinha à esquerda */
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
   }
 
   .todo div {
-    position: relative; /* sobrescreve se antes era absolute */
+    width: 100%;
     display: flex;
-    flex-wrap: wrap; /* permite quebrar linha */
-    justify-content: flex-start;
-    margin-top: 10px; /* dá um respiro entre o texto e os botões */
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    position: relative;
+    gap: 8px;
   }
 
+  /* Ajusta os botões para ocuparem melhor o espaço */
   .todo div button {
-    flex: 1 1 45%; /* cada botão ocupa ~45% da largura, quebra em 2 colunas */
-    min-width: 120px;
+    flex: 1;
+    min-width: 80px;
+    padding: 8px 5px;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  /* Ajusta os inputs de edição para telas menores */
+  .edit-input,
+  .edit-select {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Ajusta o formulário de filtro */
+  .filter-options {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .filter-options > div:last-child {
+    align-items: stretch;
+    margin-left: 0;
+  }
+
+  .filter-options p {
+    text-align: left;
+  }
+
+  .filter-options .sort-buttons {
+    justify-content: space-between;
+  }
+
+  .filter-options .sort-buttons button {
+    width: 48%;
+  }
+
+  /* Ajusta o formulário de adicionar tarefa */
+  .todo-form input,
+  .todo-form select,
+  .todo-form button[type="submit"] {
+    height: 50px;
+    font-size: 16px;
   }
 }
