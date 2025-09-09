@@ -61,8 +61,12 @@ const Todo = ({ todo, removeTodo, completeTodo, editTodo }) => {
       <div>
         <button className="complete" onClick={() => completeTodo(todo.id)}>
           {todo.isCompleted ? "Desfazer" : "Completar"}
+          <span className="mobile-icon">✅</span>
+          <span className="desktop-text">Completar</span>
         </button>
         <button className="edit" onClick={() => setIsEditing(true)}>
+          <span className="mobile-icon">✏️</span>
+          <span className="desktop-text">Editar</span>
           Editar
         </button>
         <button className="remove" onClick={() => removeTodo(todo.id)}>

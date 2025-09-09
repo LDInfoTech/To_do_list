@@ -381,71 +381,60 @@ button.remove:hover {
 /* Ajustes para telas pequenas */
 
 @media screen and (max-width: 760px) {
-  /* Ajusta o padding geral para mobile */
-  body {
-    padding: 10px;
+  .todo-item {
+    position: relative;
+    padding-bottom: 70px !important;
   }
 
-  .App {
-    padding: 15px;
-    margin: 0 auto 80px;
-  }
-
-  /* Estrutura dos botões */
-  .todo > div:last-child {
-    display: grid !important;
+  .todo-actions {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    right: 15px;
+    display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 8px;
-    width: 100%;
-    margin-top: 15px;
   }
 
-  .todo > div:last-child button {
+  .todo-actions button {
     width: 100%;
-    min-width: 0;
     padding: 10px 5px;
     font-size: 12px;
-    white-space: nowrap;
     margin: 0;
+    min-width: 0;
+    white-space: nowrap;
   }
 
-  /* textos longos nas tarefas */
-  .todo {
-    word-wrap: break-word;
-    overflow-wrap: break-word;
+  /* Esconde texto em mobile muito pequeno */
+  @media screen and (max-width: 480px) {
+    .desktop-text {
+      display: none;
+    }
+
+    .mobile-icon {
+      display: inline;
+      font-size: 16px;
+    }
+
+    .todo-actions button {
+      padding: 12px 5px;
+      font-size: 14px;
+    }
   }
 
-  /* modo de edição */
-  .todo.edit-mode > div:last-child {
-    grid-template-columns: 1fr;
-    gap: 10px;
+  /* Mostra texto em telas maiores */
+  @media screen and (min-width: 481px) {
+    .mobile-icon {
+      display: none;
+    }
+
+    .desktop-text {
+      display: inline;
+    }
   }
 }
 
-/* Para telas muito pequenas (menos de 480px) */
-@media screen and (max-width: 480px) {
-  .todo > div:last-child button {
-    font-size: 11px;
-    padding: 12px 5px;
-  }
-
-  /* substituir texto por ícones */
-  .todo > div:last-child button {
-    position: relative;
-  }
-
-  .todo > div:last-child button::before {
-    content: "";
-    margin-right: 4px;
-  }
-
-  .remove::before {
-    content: "🗑️";
-  }
-  .complete::before {
-    content: "✅";
-  }
-  .edit::before {
-    content: "✏️";
-  }
+/* Garante que o item do todo tenha posição relativa */
+.todo-item {
+  position: relative;
 }
