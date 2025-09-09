@@ -381,76 +381,63 @@ button.remove:hover {
 /* Ajustes para telas pequenas */
 
 @media screen and (max-width: 760px) {
-  /* Ajustes gerais para telas menores */
   body {
-    padding: 15px;
+    padding: 10px;
   }
 
   .App {
-    margin: 0 auto 100px;
+    margin: 0 auto 50px;
     padding: 15px;
+    border-radius: 8px;
   }
 
-  /* Ajuste específico para os botões de ação nas tarefas */
+  /* Container dos botões */
   .todo {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 15px;
+    position: relative;
+    padding-bottom: 60px; /* Espaço para os botões */
   }
 
   .todo div {
-    width: 100%;
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    left: 15px;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    position: relative;
-    gap: 8px;
+    justify-content: space-between;
+    gap: 5px;
   }
 
-  /* Ajusta os botões para ocuparem melhor o espaço */
   .todo div button {
     flex: 1;
-    min-width: 80px;
-    padding: 8px 5px;
-    font-size: 14px;
-    text-align: center;
+    min-width: 0;
+    padding: 10px 5px;
+    font-size: 12px;
+    white-space: nowrap;
   }
 
-  /* Ajusta os inputs de edição para telas menores */
-  .edit-input,
-  .edit-select {
-    width: 100%;
-    box-sizing: border-box;
+  /* Modo de edição */
+  .todo.edit-mode div {
+    position: static;
+    margin-top: 15px;
   }
 
-  /* Ajusta o formulário de filtro */
+  /* Textos longos */
+  .todo {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  /* Formulários */
   .filter-options {
     flex-direction: column;
-    gap: 15px;
-  }
-
-  .filter-options > div:last-child {
-    align-items: stretch;
-    margin-left: 0;
-  }
-
-  .filter-options p {
-    text-align: left;
   }
 
   .filter-options .sort-buttons {
     justify-content: space-between;
+    width: 100%;
   }
 
   .filter-options .sort-buttons button {
     width: 48%;
-  }
-
-  /* Ajusta o formulário de adicionar tarefa */
-  .todo-form input,
-  .todo-form select,
-  .todo-form button[type="submit"] {
-    height: 50px;
-    font-size: 16px;
   }
 }
