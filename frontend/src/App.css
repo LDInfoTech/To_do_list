@@ -400,3 +400,10 @@ button.remove:hover {
     font-size: 14px;
   }
 }
+
+.todo-actions {
+  display: flex;
+  gap: 5px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
