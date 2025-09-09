@@ -381,63 +381,71 @@ button.remove:hover {
 /* Ajustes para telas pequenas */
 
 @media screen and (max-width: 760px) {
+  /* Ajusta o padding geral para mobile */
   body {
     padding: 10px;
   }
 
   .App {
-    margin: 0 auto 50px;
     padding: 15px;
-    border-radius: 8px;
+    margin: 0 auto 80px;
   }
 
-  /* Container dos botões */
-  .todo {
-    position: relative;
-    padding-bottom: 60px; /* Espaço para os botões */
+  /* Estrutura dos botões */
+  .todo > div:last-child {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    width: 100%;
+    margin-top: 15px;
   }
 
-  .todo div {
-    position: absolute;
-    bottom: 15px;
-    right: 15px;
-    left: 15px;
-    display: flex;
-    justify-content: space-between;
-    gap: 5px;
-  }
-
-  .todo div button {
-    flex: 1;
+  .todo > div:last-child button {
+    width: 100%;
     min-width: 0;
     padding: 10px 5px;
     font-size: 12px;
     white-space: nowrap;
+    margin: 0;
   }
 
-  /* Modo de edição */
-  .todo.edit-mode div {
-    position: static;
-    margin-top: 15px;
-  }
-
-  /* Textos longos */
+  /* textos longos nas tarefas */
   .todo {
     word-wrap: break-word;
     overflow-wrap: break-word;
   }
 
-  /* Formulários */
-  .filter-options {
-    flex-direction: column;
+  /* modo de edição */
+  .todo.edit-mode > div:last-child {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+
+/* Para telas muito pequenas (menos de 480px) */
+@media screen and (max-width: 480px) {
+  .todo > div:last-child button {
+    font-size: 11px;
+    padding: 12px 5px;
   }
 
-  .filter-options .sort-buttons {
-    justify-content: space-between;
-    width: 100%;
+  /* substituir texto por ícones */
+  .todo > div:last-child button {
+    position: relative;
   }
 
-  .filter-options .sort-buttons button {
-    width: 48%;
+  .todo > div:last-child button::before {
+    content: "";
+    margin-right: 4px;
+  }
+
+  .remove::before {
+    content: "🗑️";
+  }
+  .complete::before {
+    content: "✅";
+  }
+  .edit::before {
+    content: "✏️";
   }
 }
