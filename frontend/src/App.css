@@ -381,60 +381,22 @@ button.remove:hover {
 /* Ajustes para telas pequenas */
 
 @media screen and (max-width: 760px) {
-  .todo-item {
-    position: relative;
-    padding-bottom: 70px !important;
+  .todo {
+    flex-direction: column; /* empilha conteúdo e botões */
+    align-items: flex-start;
   }
 
   .todo-actions {
-    position: absolute;
-    bottom: 15px;
-    left: 15px;
-    right: 15px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 8px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    flex-wrap: wrap; /* se faltar espaço, os botões quebram para baixo */
   }
 
   .todo-actions button {
-    width: 100%;
-    padding: 10px 5px;
-    font-size: 12px;
-    margin: 0;
-    min-width: 0;
-    white-space: nowrap;
+    flex: 1; /* todos ocupam espaço igual */
+    margin: 2px;
+    font-size: 14px;
   }
-
-  /* Esconde texto em mobile muito pequeno */
-  @media screen and (max-width: 480px) {
-    .desktop-text {
-      display: none;
-    }
-
-    .mobile-icon {
-      display: inline;
-      font-size: 16px;
-    }
-
-    .todo-actions button {
-      padding: 12px 5px;
-      font-size: 14px;
-    }
-  }
-
-  /* Mostra texto em telas maiores */
-  @media screen and (min-width: 481px) {
-    .mobile-icon {
-      display: none;
-    }
-
-    .desktop-text {
-      display: inline;
-    }
-  }
-}
-
-/* Garante que o item do todo tenha posição relativa */
-.todo-item {
-  position: relative;
 }

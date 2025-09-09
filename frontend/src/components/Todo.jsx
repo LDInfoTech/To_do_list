@@ -58,21 +58,20 @@ const Todo = ({ todo, removeTodo, completeTodo, editTodo }) => {
         <p>{todo.text}</p>
         <p className="category">({todo.category})</p>
       </div>
-      <div>
+      <div className="todo-actions">
         <button className="complete" onClick={() => completeTodo(todo.id)}>
-          {todo.isCompleted ? "Desfazer" : "Completar"}
           <span className="mobile-icon">✅</span>
-          <span className="desktop-text">Completar</span>
+          <span className="desktop-text">
+            {todo.isCompleted ? "Desfazer" : "Completar"}
+          </span>
         </button>
         <button className="edit" onClick={() => setIsEditing(true)}>
           <span className="mobile-icon">✏️</span>
           <span className="desktop-text">Editar</span>
-          Editar
         </button>
         <button className="remove" onClick={() => removeTodo(todo.id)}>
           <span className="mobile-icon">🗑️</span>
-          <span className="desktop-text">Remover</span>
-          Excluir
+          <span className="desktop-text">Excluir</span>
         </button>
       </div>
     </div>
