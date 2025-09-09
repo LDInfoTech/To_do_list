@@ -66,6 +66,8 @@ const Todo = ({ todo, removeTodo, completeTodo, editTodo }) => {
           Editar
         </button>
         <button className="remove" onClick={() => removeTodo(todo.id)}>
+          <span className="mobile-icon">🗑️</span>
+          <span className="desktop-text">Remover</span>
           Excluir
         </button>
       </div>
