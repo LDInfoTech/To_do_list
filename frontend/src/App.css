@@ -1,26 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 
-/* Ajustes para telas pequenas */
-@media (max-width: 760px) {
-  .todo {
-    flex-direction: column; /* coloca conteúdo e botões em coluna */
-    align-items: flex-start; /* alinha à esquerda */
-  }
-
-  .todo div {
-    position: relative; /* sobrescreve se antes era absolute */
-    display: flex;
-    flex-wrap: wrap; /* permite quebrar linha */
-    justify-content: flex-start;
-    margin-top: 10px; /* dá um respiro entre o texto e os botões */
-  }
-
-  .todo div button {
-    flex: 1 1 45%; /* cada botão ocupa ~45% da largura, quebra em 2 colunas */
-    min-width: 120px;
-  }
-}
-
 body {
   font-family: "Nunito", Arial, Helvetica, sans-serif;
   background-color: rgb(28, 28, 48);
@@ -397,4 +376,25 @@ button.remove {
 
 button.remove:hover {
   background-color: #c82333;
+}
+
+/* Ajustes para telas pequenas */
+@media (max-width: 760px) {
+  .todo {
+    flex-direction: column; /* coloca conteúdo e botões em coluna */
+    align-items: flex-start; /* alinha à esquerda */
+  }
+
+  .todo div {
+    position: relative; /* sobrescreve se antes era absolute */
+    display: flex;
+    flex-wrap: wrap; /* permite quebrar linha */
+    justify-content: flex-start;
+    margin-top: 10px; /* dá um respiro entre o texto e os botões */
+  }
+
+  .todo div button {
+    flex: 1 1 45%; /* cada botão ocupa ~45% da largura, quebra em 2 colunas */
+    min-width: 120px;
+  }
 }
